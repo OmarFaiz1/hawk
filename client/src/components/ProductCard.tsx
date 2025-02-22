@@ -13,36 +13,48 @@ export default function ProductCard({ product }: ProductCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative"
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.3 }}
+      className="group relative bg-card rounded-lg overflow-hidden border shadow-sm hover:shadow-lg transition-shadow"
     >
       <Link href={`/product/${product.id}`}>
         <a className="block">
-          <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
-            <img
+          <div className="aspect-square overflow-hidden bg-muted">
+            <motion.img
               src={product.image}
               alt={product.name}
-              className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+              className="h-full w-full object-cover object-center"
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.4 }}
             />
           </div>
-          <div className="mt-4">
-            <h3 className="text-sm font-medium">{product.name}</h3>
-            <p className="text-sm text-muted-foreground">{product.brand}</p>
-            <p className="mt-1 text-sm font-medium">${product.price}</p>
+          <div className="p-4">
+            <h3 className="font-semibold truncate">{product.name}</h3>
+            <p className="text-sm text-muted-foreground mt-1">{product.brand}</p>
+            <div className="mt-2 flex items-center justify-between">
+              <p className="text-lg font-bold">${product.price}</p>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = `/product/${product.id}`;
+                  }}
+                >
+                  <ShoppingBag className="mr-2 h-4 w-4" />
+                  View
+                </Button>
+              </motion.div>
+            </div>
           </div>
         </a>
       </Link>
-      <Button
-        variant="secondary"
-        size="sm"
-        className="absolute bottom-0 right-0 opacity-0 transition-opacity group-hover:opacity-100"
-        onClick={(e) => {
-          e.preventDefault();
-          window.location.href = `/product/${product.id}`;
-        }}
-      >
-        <ShoppingBag className="mr-2 h-4 w-4" />
-        View Details
-      </Button>
     </motion.div>
   );
 }
