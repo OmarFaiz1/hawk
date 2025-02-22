@@ -11,6 +11,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
@@ -25,14 +26,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div 
             className="aspect-square overflow-hidden bg-muted relative"
             onMouseEnter={() => {
-              const timer = setInterval(() => {
-                setCurrentImageIndex((current) => 
-                  current === product.images.length - 1 ? 0 : current + 1
-                );
-              }, 1000);
-              return () => clearInterval(timer);
+              setIsHovered(true);
+              if (product.images.length > 1) {
+                setCurrentImageIndex(1);
+              }
             }}
-            onMouseLeave={() => setCurrentImageIndex(0)}
+            onMouseLeave={() => {
+              setIsHovered(false);
+              setCurrentImageIndex(0);
+            }}
           >
             <AnimatePresence mode="wait">
               <motion.img
