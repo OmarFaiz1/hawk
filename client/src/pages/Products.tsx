@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import ProductCard from "@/components/ProductCard";
+import ProductGallery from "@/components/ProductGallery";
 import { MOCK_PRODUCTS, BRANDS } from "@/lib/products";
 
 export default function Products() {
@@ -44,7 +43,7 @@ export default function Products() {
             placeholder="Search products..."
           />
         </div>
-        
+
         <div>
           <Label>Brand</Label>
           <Select value={selectedBrand} onValueChange={setSelectedBrand}>
@@ -77,14 +76,7 @@ export default function Products() {
         </div>
       </div>
 
-      <motion.div 
-        layout
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      >
-        {filteredProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </motion.div>
+      <ProductGallery products={filteredProducts} />
 
       {filteredProducts.length === 0 && (
         <p className="text-center text-muted-foreground mt-8">
