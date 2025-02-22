@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
@@ -9,6 +10,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -19,14 +22,30 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       <Link href={`/product/${product.id}`}>
         <a className="block">
-          <div className="aspect-square overflow-hidden bg-muted">
-            <motion.img
-              src={product.image}
-              alt={product.name}
-              className="h-full w-full object-cover object-center"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.4 }}
-            />
+          <div 
+            className="aspect-square overflow-hidden bg-muted relative"
+            onMouseEnter={() => {
+              const timer = setInterval(() => {
+                setCurrentImageIndex((current) => 
+                  current === product.images.length - 1 ? 0 : current + 1
+                );
+              }, 1000);
+              return () => clearInterval(timer);
+            }}
+            onMouseLeave={() => setCurrentImageIndex(0)}
+          >
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={currentImageIndex}
+                src={product.images[currentImageIndex]}
+                alt={product.name}
+                className="h-full w-full object-cover object-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </AnimatePresence>
           </div>
           <div className="p-4">
             <h3 className="font-semibold truncate">{product.name}</h3>

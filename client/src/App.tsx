@@ -1,5 +1,6 @@
 import { Switch, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "next-themes";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
@@ -8,6 +9,7 @@ import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetails from "@/pages/ProductDetails";
 import Checkout from "@/pages/Checkout";
+import About from "@/pages/About";
 
 function Router() {
   return (
@@ -16,6 +18,9 @@ function Router() {
       <Route path="/products" component={Products} />
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/checkout" component={Checkout} />
+      <Route path="/about" component={About} />
+      <Route path="/category/:category" component={Products} />
+      <Route path="/collections/:collection" component={Products} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -23,15 +28,17 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <main>
-          <Router />
-        </main>
-        <Toaster />
-      </div>
-    </QueryClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <QueryClientProvider client={queryClient}>
+        <div className="min-h-screen bg-background">
+          <Navbar />
+          <main>
+            <Router />
+          </main>
+          <Toaster />
+        </div>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
