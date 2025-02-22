@@ -14,7 +14,12 @@ export const MOCK_PRODUCTS: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
       "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
-      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519",
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
+      "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb",
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842",
+      "https://images.unsplash.com/photo-1607522370275-f14206abe5d3",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
     ],
     sizes: ["7", "8", "9", "10", "11", "12"],
     style: "Athletic",

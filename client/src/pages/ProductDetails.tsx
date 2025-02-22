@@ -16,6 +16,7 @@ import { Heart } from "lucide-react";
 import SizeGuide from "@/components/SizeGuide";
 import { toggleWishlist, isInWishlist } from "@/lib/wishlist";
 import { addToRecentlyViewed, getRecentlyViewed } from "@/lib/recentlyViewed";
+import ProductView360 from "@/components/ProductView360";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -24,6 +25,7 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [inWishlist, setInWishlist] = useState(false);
   const [recentProducts, setRecentProducts] = useState<typeof MOCK_PRODUCTS>([]);
+  const [showRotateView, setShowRotateView] = useState(false);
 
   const product = MOCK_PRODUCTS.find(p => p.id === Number(id));
 
@@ -87,13 +89,29 @@ export default function ProductDetails() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="aspect-square overflow-hidden rounded-lg bg-gray-100"
+          className="flex flex-col gap-4"
         >
-          <img
-            src={product.image}
-            alt={product.name}
-            className="h-full w-full object-cover"
-          />
+          {showRotateView ? (
+            <ProductView360 
+              images={product.images} 
+              className="aspect-square"
+            />
+          ) : (
+            <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          )}
+          <Button
+            variant="outline"
+            onClick={() => setShowRotateView(!showRotateView)}
+            className="mt-2"
+          >
+            {showRotateView ? "Show Standard View" : "View 360°"}
+          </Button>
         </motion.div>
 
         <motion.div
