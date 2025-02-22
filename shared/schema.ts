@@ -10,7 +10,14 @@ export const products = pgTable("products", {
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
   image: text("image").notNull(),
   images: text("images").array().notNull(),
-  sizes: text("sizes").array().notNull()
+  sizes: text("sizes").array().notNull(),
+  style: text("style").notNull(),
+  occasion: text("occasion").notNull(),
+  weather: text("weather").notNull(),
+  colors: text("colors").array().notNull(),
+  stockLevel: integer("stock_level").notNull(),
+  isBundle: integer("is_bundle").notNull().default(0),
+  relatedProducts: text("related_products").array()
 });
 
 export const insertProductSchema = createInsertSchema(products).pick({
@@ -20,7 +27,14 @@ export const insertProductSchema = createInsertSchema(products).pick({
   price: true,
   image: true,
   images: true,
-  sizes: true
+  sizes: true,
+  style: true,
+  occasion: true,
+  weather: true,
+  colors: true,
+  stockLevel: true,
+  isBundle: true,
+  relatedProducts: true
 });
 
 export type InsertProduct = z.infer<typeof insertProductSchema>;
@@ -33,3 +47,26 @@ export const cartItemSchema = z.object({
 });
 
 export type CartItem = z.infer<typeof cartItemSchema>;
+
+export const PRODUCT_STYLES = [
+  "Casual", "Athletic", "Formal", "Outdoor"
+] as const;
+
+export const OCCASIONS = [
+  "Everyday", "Sport", "Business", "Special Event"
+] as const;
+
+export const WEATHER_CONDITIONS = [
+  "All-Season", "Summer", "Winter", "Rain"
+] as const;
+
+export const COLOR_OPTIONS = [
+  { name: "Black", hex: "#000000" },
+  { name: "White", hex: "#FFFFFF" },
+  { name: "Brown", hex: "#795548" },
+  { name: "Navy", hex: "#0D47A1" },
+  { name: "Gray", hex: "#9E9E9E" },
+  { name: "Red", hex: "#D32F2F" },
+  { name: "Green", hex: "#388E3C" },
+  { name: "Blue", hex: "#1976D2" }
+] as const;

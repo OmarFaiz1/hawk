@@ -1,4 +1,7 @@
 import type { Product } from "@shared/schema";
+import { PRODUCT_STYLES, COLOR_OPTIONS } from "@shared/schema";
+import type { OCCASIONS as OccasionType } from "@shared/schema";
+import type { WEATHER_CONDITIONS as WeatherType } from "@shared/schema";
 
 export const MOCK_PRODUCTS: Product[] = [
   {
@@ -13,12 +16,19 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
       "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"
     ],
-    sizes: ["7", "8", "9", "10", "11", "12"]
+    sizes: ["7", "8", "9", "10", "11", "12"],
+    style: "Athletic",
+    occasion: "Sport",
+    weather: "All-Season",
+    colors: ["Black", "White", "Red"],
+    stockLevel: 45,
+    isBundle: 0,
+    relatedProducts: ["2", "7"]
   },
   {
     id: 2,
     name: "Urban Walker",
-    brand: "Adidas", 
+    brand: "Adidas",
     description: "Sleek and stylish sneaker designed for city life. Features premium leather upper and cushioned insole.",
     price: "149.99",
     image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5",
@@ -27,7 +37,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
       "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb"
     ],
-    sizes: ["7", "8", "9", "10", "11"]
+    sizes: ["7", "8", "9", "10", "11"],
+    style: "Casual",
+    occasion: "Everyday",
+    weather: "All-Season",
+    colors: ["Grey", "Blue", "Black"],
+    stockLevel: 30,
+    isBundle: 0,
+    relatedProducts: ["1", "3"]
   },
   {
     id: 3,
@@ -41,7 +58,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1605408499391-6368c628ef42",
       "https://images.unsplash.com/photo-1605348532760-6753d2c43329"
     ],
-    sizes: ["8", "9", "10", "11", "12"]
+    sizes: ["8", "9", "10", "11", "12"],
+    style: "Athletic",
+    occasion: "Workout",
+    weather: "All-Season",
+    colors: ["Black", "Grey", "Green"],
+    stockLevel: 25,
+    isBundle: 0,
+    relatedProducts: ["2", "8"]
   },
   {
     id: 4,
@@ -55,7 +79,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1570464197285-9949b7c7b04e",
       "https://images.unsplash.com/photo-1584735175315-9d5df23860e6"
     ],
-    sizes: ["7", "8", "9", "10", "11", "12"]
+    sizes: ["7", "8", "9", "10", "11", "12"],
+    style: "Casual",
+    occasion: "Everyday",
+    weather: "All-Season",
+    colors: ["Brown", "Beige", "Navy"],
+    stockLevel: 40,
+    isBundle: 0,
+    relatedProducts: ["1", "6"]
   },
   {
     id: 5,
@@ -69,7 +100,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05",
       "https://images.unsplash.com/photo-1604671801891-93a4d5d8c8eb"
     ],
-    sizes: ["8", "9", "10", "11", "12", "13"]
+    sizes: ["8", "9", "10", "11", "12", "13"],
+    style: "Athletic",
+    occasion: "Sport",
+    weather: "All-Season",
+    colors: ["White", "Black", "Blue"],
+    stockLevel: 35,
+    isBundle: 0,
+    relatedProducts: ["7", "9"]
   },
   {
     id: 6,
@@ -83,7 +121,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1607522370275-f14206abe5d3",
       "https://images.unsplash.com/photo-1607522370275-f14206abe5d3"
     ],
-    sizes: ["7", "8", "9", "10", "11"]
+    sizes: ["7", "8", "9", "10", "11"],
+    style: "Casual",
+    occasion: "Everyday",
+    weather: "All-Season",
+    colors: ["White", "Black", "Grey"],
+    stockLevel: 50,
+    isBundle: 0,
+    relatedProducts: ["4", "5"]
   },
   {
     id: 7,
@@ -97,7 +142,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1595341888016-a392ef81b7de",
       "https://images.unsplash.com/photo-1595341887283-a392ef81b7de"
     ],
-    sizes: ["7", "8", "9", "10", "11", "12"]
+    sizes: ["7", "8", "9", "10", "11", "12"],
+    style: "Athletic",
+    occasion: "Sport",
+    weather: "All-Season",
+    colors: ["Blue", "Red", "Black"],
+    stockLevel: 40,
+    isBundle: 0,
+    relatedProducts: ["1", "5"]
   },
   {
     id: 8,
@@ -111,7 +163,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9",
       "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9"
     ],
-    sizes: ["7", "8", "9", "10", "11"]
+    sizes: ["7", "8", "9", "10", "11"],
+    style: "Casual",
+    occasion: "Everyday",
+    weather: "All-Season",
+    colors: ["White", "Grey", "Beige"],
+    stockLevel: 30,
+    isBundle: 0,
+    relatedProducts: ["3", "4"]
   },
   {
     id: 9,
@@ -125,7 +184,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1520639888713-7851133b1ed0",
       "https://images.unsplash.com/photo-1520639888713-7851133b1ed0"
     ],
-    sizes: ["8", "9", "10", "11", "12"]
+    sizes: ["8", "9", "10", "11", "12"],
+    style: "Outdoor",
+    occasion: "Hiking",
+    weather: "All-Season",
+    colors: ["Brown", "Black", "Green"],
+    stockLevel: 20,
+    isBundle: 0,
+    relatedProducts: ["5", "8"]
   },
   {
     id: 10,
@@ -139,7 +205,14 @@ export const MOCK_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
       "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa"
     ],
-    sizes: ["7", "8", "9", "10", "11", "12"]
+    sizes: ["7", "8", "9", "10", "11", "12"],
+    style: "Athletic",
+    occasion: "Sport",
+    weather: "All-Season",
+    colors: ["Yellow", "Black", "Red"],
+    stockLevel: 15,
+    isBundle: 0,
+    relatedProducts: ["1", "7"]
   }
 ];
 
@@ -159,3 +232,8 @@ export const COLLECTIONS = [
   { name: "Best Sellers", path: "/collections/best-sellers" },
   { name: "Limited Edition", path: "/collections/limited-edition" }
 ];
+
+export const STYLES = PRODUCT_STYLES;
+export const OCCASIONS: typeof OccasionType = ["Everyday", "Sport", "Business", "Special Event"];
+export const WEATHER_CONDITIONS: typeof WeatherType = ["All-Season", "Summer", "Winter", "Rain"];
+export const COLORS = COLOR_OPTIONS;
