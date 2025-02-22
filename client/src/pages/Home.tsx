@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { FEATURED_PRODUCT } from "@/lib/products";
-import { ArrowRight } from "lucide-react";
+import { FEATURED_PRODUCT, MOCK_PRODUCTS } from "@/lib/products";
+import { ArrowRight, ShieldCheck, Truck, RefreshCw } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -11,8 +13,21 @@ const fadeIn = {
 };
 
 export default function Home() {
+  const { toast } = useToast();
+  const featuredProducts = MOCK_PRODUCTS.slice(0, 4);
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Subscribed!",
+      description: "Thank you for subscribing to our newsletter.",
+    });
+    (e.target as HTMLFormElement).reset();
+  };
+
   return (
     <div>
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted">
         <motion.div 
           className="container relative py-24 sm:py-32"
@@ -64,7 +79,37 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section className="py-24 sm:py-32">
+      {/* Benefits Section */}
+      <section className="py-16 bg-muted/50">
+        <div className="container">
+          <motion.div 
+            className="grid grid-cols-1 gap-8 md:grid-cols-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex flex-col items-center text-center p-6">
+              <ShieldCheck className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Quality Guarantee</h3>
+              <p className="text-muted-foreground">Premium materials and expert craftsmanship in every pair.</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6">
+              <Truck className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Free Shipping</h3>
+              <p className="text-muted-foreground">Complimentary shipping on all orders over $100.</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6">
+              <RefreshCw className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Easy Returns</h3>
+              <p className="text-muted-foreground">30-day hassle-free returns for your peace of mind.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-24">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -74,53 +119,81 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-              Featured Collection
+              Trending Now
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Experience the perfect blend of style and comfort with our carefully curated selection.
+              Explore our latest arrivals and bestselling styles.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
-            <motion.div
-              className="flex flex-col justify-center"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h3 className="text-2xl font-bold tracking-tight mb-4">
-                {FEATURED_PRODUCT.name}
-              </h3>
-              <p className="text-muted-foreground">
-                {FEATURED_PRODUCT.description}
-              </p>
-              <div className="mt-6">
-                <Button asChild variant="secondary" className="rounded-full">
-                  <Link href={`/product/${FEATURED_PRODUCT.id}`}>
-                    Explore Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="aspect-square overflow-hidden rounded-2xl bg-muted"
-            >
-              <motion.img
-                src={FEATURED_PRODUCT.image}
-                alt={FEATURED_PRODUCT.name}
-                className="h-full w-full object-cover"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
-              />
-            </motion.div>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative"
+              >
+                <Link href={`/product/${product.id}`}>
+                  <a className="block">
+                    <div className="aspect-square overflow-hidden rounded-xl bg-muted">
+                      <motion.img
+                        src={product.image}
+                        alt={product.name}
+                        className="h-full w-full object-cover"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.4 }}
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="text-lg font-semibold">{product.name}</h3>
+                      <p className="text-primary font-medium">${product.price}</p>
+                    </div>
+                  </a>
+                </Link>
+              </motion.div>
+            ))}
           </div>
+
+          <div className="mt-16 text-center">
+            <Button asChild variant="outline" size="lg" className="rounded-full">
+              <Link href="/products">
+                View All Products
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-24 bg-muted">
+        <div className="container">
+          <motion.div
+            className="max-w-2xl mx-auto text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+              Stay in the Loop
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Subscribe to our newsletter for exclusive offers, new arrivals, and style inspiration.
+            </p>
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-4 max-w-md mx-auto">
+              <Input 
+                type="email" 
+                placeholder="Enter your email" 
+                required 
+                className="flex-1"
+              />
+              <Button type="submit">Subscribe</Button>
+            </form>
+          </motion.div>
         </div>
       </section>
     </div>
